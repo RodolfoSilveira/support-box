@@ -7,11 +7,14 @@ const authMiddleware = require('./middlewares/auth')
 
 const UserController = require('./controllers/UserController')
 const AuthController = require('./controllers/AuthController')
+const EmployeeController = require('./controllers/EmployeeController')
 
 const upload = multer(uploadConfig)
 
 routes.post('/register', AuthController.store)
 routes.post('/authenticate', AuthController.login)
+routes.post('/registerEmployee', EmployeeController.store)
+routes.get('/employee', EmployeeController.index)
 
 routes.use(authMiddleware)
 
