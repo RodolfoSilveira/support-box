@@ -19,6 +19,9 @@ routes.post('/authenticate', AuthController.login)
 //routes employee
 routes.post('/registerEmployee', EmployeeController.store)
 routes.get('/employee', EmployeeController.index)
+routes.get('/employee/:id', EmployeeController.show)
+routes.put('/employee/:id', EmployeeController.update)
+routes.delete('/employee/:id', EmployeeController.delete)
 //routes client
 routes.post('/registerClient', ClientController.store)
 routes.get('/client', ClientController.index)
