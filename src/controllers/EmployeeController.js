@@ -1,5 +1,4 @@
-const { Employee } = require('../app/models')
-const { User } = require('../app/models')
+const { Employee, User } = require('../app/models')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const authConfig = require('../config/auth.json')
