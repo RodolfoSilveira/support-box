@@ -22,6 +22,9 @@ routes.get('/employee', EmployeeController.index)
 //routes client
 routes.post('/registerClient', ClientController.store)
 routes.get('/client', ClientController.index)
+routes.get('/client/:id', ClientController.show)
+routes.put('/client/:id', ClientController.update)
+routes.delete('/client/:id', ClientController.delete)
 
 routes.use(authMiddleware)
 

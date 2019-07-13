@@ -12,9 +12,13 @@ function generateToken(params = {}){
 module.exports = {
 
     async index(req, res) {
-        const user = await User.findAll({include:[Client]})
+        try{
+            const user = await User.findAll({include:[Client]})
 
-        res.send({user})
+            return res.send({user})
+        }catch(err){
+            return res.status(400).send({error: 'Data not found'})
+        }
     },
 
     async store(req, res) {
@@ -44,14 +48,45 @@ module.exports = {
     },
 
     async show(req, res) {
+        const { id } = req.params
 
+        try{
+            const user = await User.findOne({include:[Client], where: {id}})
+
+            user.password = undefined
+    
+            return res.send({user})
+        }catch(err) {
+            return res.status(400).status({error: 'User not found'})
+        }
     },
 
     async update(req, res) {
+        const { id } = req.params
+        const { name, email, password, cpf } = req.body
 
+        try{
+            const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
+
+            await User.update({ name, email, password: hash },{ where: {id} })
+            await Client.update({ name, cpf }, { where: {UserId: id} })
+            
+            return res.send({success: 'Update Succefuly'})
+
+        } catch(err) {
+            return res.status(400).send({ error: 'Update Failed'})
+        }
     },
 
     async delete(req, res) {
+        const { id } = req.params
 
+        try{
+            await User.destroy({include:[Client], where: {id}})
+
+            return res.send({delete: OK})
+        }catch(err){
+            return res.status(400).send({ error: 'delete error'})
+        }
     } 
 }
