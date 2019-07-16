@@ -16,15 +16,15 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty: {
           msg: 'Esse campo não pode ser vazio'
-        },
+        }
       }
     },
-    password: DataTypes.STRING,
+    password: DataTypes.STRING
   }, {})
-  User.associate = function(models) {
+  User.associate = function (models) {
     // associations can be defined here
     User.hasOne(models.Employee)
     User.hasOne(models.Client)
-  };
+  }
   return User
 }
