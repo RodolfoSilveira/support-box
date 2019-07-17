@@ -4,7 +4,7 @@ import authConfig from '../config/auth.json'
 import { User } from '../app/models'
 import { Request, Response } from 'express'
 
-function generateToken (params = {}) {
+function generateToken (params = {}): string {
   return jwt.sign(params, authConfig.secret, {
     expiresIn: 86400
   })
@@ -19,7 +19,7 @@ class AuthController {
         return res.status(400).send({error: 'User already exists' })
       }
 
-      const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
+      const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 
       const user = await User.create({ name, email, password: hash })
 
@@ -49,7 +49,7 @@ class AuthController {
 
     user.password = undefined
 
-    res.send({ user, token: generateToken({id: user.id }) })
+    res.send({ user, token: generateToken({ id: user.id }) })
   }
 }
 

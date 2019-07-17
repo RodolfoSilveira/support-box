@@ -4,7 +4,7 @@ import authConfig from '../config/auth.json'
 import { Client, User } from '../app/models'
 import { Request, Response } from 'express'
 
-function generateToken (params = {}) {
+function generateToken (params = {}): string {
   return jwt.sign(params, authConfig.secret, {
     expiresIn: 86400
   })
@@ -25,11 +25,11 @@ class ClientController {
     const { name, email, password, cpf } = req.body
 
     try {
-      if (await User.findOne({where: { email } })) {
+      if (await User.findOne({ where: { email } })) {
         return res.status(400).send({ error: 'User already exists' })
       }
 
-      const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
+      const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 
       const user = await User.create({ name, email, password: hash })
         .then(user => user.createClient({
@@ -65,7 +65,7 @@ class ClientController {
     const { name, email, password, cpf } = req.body
 
     try {
-      const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
+      const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 
       await User.update({ name, email, password: hash }, { where: { id } })
       await Client.update({ name, cpf }, { where: { UserId: id } })

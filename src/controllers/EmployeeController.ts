@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import authConfig from '../config/auth.json'
 import { Request, Response } from 'express'
 
-function generateToken (params = {}) {
+function generateToken (params = {}): string {
   return jwt.sign(params, authConfig.secret, {
     expiresIn: 86400
   })
@@ -41,7 +41,7 @@ class EmployeeController {
         return res.status(400).send({ error: 'User already exists' })
       }
 
-      const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
+      const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 
       const user = await User.create({
         name,
@@ -68,7 +68,7 @@ class EmployeeController {
     const { name, email, password, cpf, rg, pis, address } = req.body
 
     try {
-      const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
+      const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 
       await User.update({ name, email, password: hash }, { where: { id } })
       await Employee.update({ name, cpf, rg, pis, address },
