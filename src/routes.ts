@@ -1,10 +1,10 @@
 import { Router } from 'express'
-const routes = Router()
-import authMiddleware from './middlewares/auth' 
+import authMiddleware from './middlewares/auth'
 import UserController from './controllers/UserController'
 import AuthController from './controllers/AuthController'
 import EmployeeController from './controllers/EmployeeController'
 import ClientController from './controllers/ClientController'
+const routes = Router()
 
 // routes user
 routes.post('/register', AuthController.store)
