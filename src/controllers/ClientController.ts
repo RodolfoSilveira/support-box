@@ -43,7 +43,7 @@ class ClientController {
       return res.send({ user, token: generateToken({ id: user.id }) })
     } catch (err) {
       return res.status(400).send({ error: 'Registration Failed' })
-    }  
+    }
   }
 
   public async show (req: Request, res: Response):Promise<Response> {

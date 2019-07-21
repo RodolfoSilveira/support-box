@@ -10,6 +10,7 @@ const routes = Router()
 routes.post('/register', AuthController.store)
 // login
 routes.post('/authenticate', AuthController.login)
+routes.post('/forgot_password', AuthController.forgotPassword)
 // routes employee
 routes.post('/registerEmployee', EmployeeController.store)
 routes.get('/employee', EmployeeController.index)
