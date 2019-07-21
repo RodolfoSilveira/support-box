@@ -11,6 +11,7 @@ routes.post('/register', AuthController.store)
 // login
 routes.post('/authenticate', AuthController.login)
 routes.post('/forgot_password', AuthController.forgotPassword)
+routes.put('/reset_password', AuthController.resetPassword)
 // routes employee
 routes.post('/registerEmployee', EmployeeController.store)
 routes.get('/employee', EmployeeController.index)

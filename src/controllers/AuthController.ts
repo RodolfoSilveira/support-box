@@ -86,6 +86,23 @@ class AuthController {
       res.status(400).send({ error: 'Erro on forgot password, try again' })
     }
   }
+
+  public async resetPassword (req: Request, res: Response):Promise<Response> {
+    const { email, token, password } = req.body
+
+    try {
+      const user = await User.findOne({ where: { email } })
+      if (!user) {
+        return res.status(400).send({ error: 'User not found!' })
+      }
+
+      const userUpdate = await User.update({ email, password }, { where: { email } })
+
+      res.send({ userUpdate })
+    } catch (err) {
+      res.status(400).send({ error: 'Cannot reset password, try again' })
+    }
+  }
 }
 
 export default new AuthController()
