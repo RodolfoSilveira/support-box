@@ -96,9 +96,13 @@ class AuthController {
         return res.status(400).send({ error: 'User not found!' })
       }
 
-      const userUpdate = await User.update({ email, password }, { where: { email } })
+      if (token) {
+        const userUpdate = await User.update({ email, password }, { where: { email } })
 
-      res.send({ userUpdate })
+        res.send({ userUpdate })
+      } else {
+        res.send({ msg: 'Necessario token' })
+      }
     } catch (err) {
       res.status(400).send({ error: 'Cannot reset password, try again' })
     }
