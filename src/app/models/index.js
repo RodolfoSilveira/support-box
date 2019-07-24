@@ -2,9 +2,12 @@ import fs from 'fs'
 import path from 'path'
 import Sequelize from 'sequelize'
 import config from '../../config/database.js'
+import Acl from 'acl'
+import AclSeq from 'sequelize-acl'
 
 const db = {}
 const sequelize = new Sequelize(config)
+export const acl = new Acl(new AclSeq(sequelize, { prefix: 'acl_' }))
 
 fs
   .readdirSync(__dirname)
