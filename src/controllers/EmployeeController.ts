@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import authConfig from '../config/auth.json'
 import { Request, Response } from 'express'
+import acl from '../auth/acl'
 
 function generateToken (params = {}): string {
   return jwt.sign(params, authConfig.secret, {
@@ -54,6 +55,12 @@ class EmployeeController {
         pis,
         address
       })).catch(err => console.log(err))
+
+      await acl.addUserRoles(user.UserId, 'employee', err => {
+        if(err) {
+          console.log(err)
+        }
+      })
 
       user.password = undefined
 

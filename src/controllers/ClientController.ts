@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import authConfig from '../config/auth.json'
 import { Client, User } from '../app/models'
 import { Request, Response } from 'express'
+import acl from '../auth/acl'
 
 function generateToken (params = {}): string {
   return jwt.sign(params, authConfig.secret, {
@@ -37,6 +38,12 @@ class ClientController {
           cpf
         })
         ).catch(err => console.log(err))
+
+      await acl.addUserRoles(user.UserId, 'client', err => {
+        if(err) {
+          console.log(err)
+        }
+      })
 
       user.password = undefined
 

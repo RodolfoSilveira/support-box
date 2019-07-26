@@ -11,9 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         isLowercase: {
           msg: 'Não é permitido palavras em caixa alta'
         },
-        notNull: {
-          msg: 'Esse campo não pode ser nulo'
-        },
         notEmpty: {
           msg: 'Esse campo não pode ser vazio'
         }
