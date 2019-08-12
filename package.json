@@ -21,7 +21,7 @@
     "mysql2": "^1.6.5",
     "nodemailer": "^6.2.1",
     "nodemailer-express-handlebars": "^3.0.0",
-    "sequelize": "^5.9.4",
+    "sequelize": "^4.0.0",
     "sequelize-acl": "^0.2.3",
     "sequelize-cli": "^5.5.0",
     "sharp": "^0.22.1"
